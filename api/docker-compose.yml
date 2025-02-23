@@ -1,0 +1,49 @@
+services:
+  app:
+    build: .
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_NAME=loans_api
+    ports:
+      - "3000:3000"
+    command: ["npm", "start"]
+    depends_on:
+      - db
+  test:
+    build: .
+    environment:
+      - NODE_ENV=test
+      - DB_HOST=test_db
+      - DB_PORT=6543
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_NAME=loans_api_test
+    ports:
+      - "8080:8080"
+    command: ["npm", "test"]
+    depends_on:
+      - test_db
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: loans_api
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+  test_db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: loans_api_test
+    ports:
+      - "6543:6543"
+    volumes:
+      - ./init-test.sql:/docker-entrypoint-initdb.d/init-test.sql:ro

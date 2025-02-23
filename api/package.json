@@ -1,0 +1,41 @@
+{
+  "name": "mid-senior-test",
+  "version": "1.0.0",
+  "description": "Welcome to the **Personal Loan Application** backend technical test! This project is designed to assess your ability to build a backend application using **Node.js**, **Express.js**, and **PostgreSQL** while implementing features for user authentication, loan management, and loan payments. The app should also be containerized using **Docker**.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests/*.test.js",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gasparperez2/mid-senior-test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gasparperez2/mid-senior-test/issues"
+  },
+  "homepage": "https://github.com/gasparperez2/mid-senior-test#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "chai": "^3.5.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "pg": "^8.13.3",
+    "sequelize": "^6.37.5",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "mocha": "^11.1.0",
+    "nodemon": "^3.1.9",
+    "supertest": "^7.0.0"
+  }
+}
