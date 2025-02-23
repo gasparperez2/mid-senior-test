@@ -51,3 +51,20 @@ CREATE TABLE IF NOT EXISTS "Payments" (
         ON DELETE CASCADE,
     PRIMARY KEY (id)
 );
+
+CREATE OR REPLACE FUNCTION update_loan_balance()
+RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE "Loans"
+    SET remaining_balance = remaining_balance - NEW.amount_paid, total_paid = total_paid + NEW.amount_paid
+    WHERE id = NEW.loan_id;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER payment_after_insert
+AFTER INSERT ON "Payments"
+FOR EACH ROW
+EXECUTE FUNCTION update_loan_balance();

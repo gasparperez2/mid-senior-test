@@ -30,17 +30,6 @@ router.post("/", loginRequired, async (req,res)=> {
         const newPayment = await Payments.create(
             {amount_paid, loan_id, payment_date: new Date()}
         )
-        try {
-            if (newPayment) {
-                Loan.remaining_balance -= amount_paid;
-                Loan.total_paid += amount_paid;
-                // After inserting the Payment, it will update the Loan's remaining balance
-                await Loan.save();
-            }
-        } catch(e) {
-            logger.error(e);
-            return res.status(400).json("Something went wrong while updating your Loan's remaining balance, please contact customer support for more information.");
-        }
         return res.status(201).json("Payment successfully created");
     } catch(e) {
         logger.error(e);
